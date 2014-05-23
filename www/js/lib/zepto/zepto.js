@@ -1333,7 +1333,8 @@ window.Zepto = Zepto
     }
     if (settings.contentType || (settings.contentType !== false && settings.data && settings.type.toUpperCase() != 'GET'))
       baseHeaders['Content-Type'] = (settings.contentType || 'application/x-www-form-urlencoded')
-    settings.headers = $.extend(baseHeaders, settings.headers || {})
+    settings.headers = $.extend(baseHeaders, settings.headers || {});
+
 
     xhr.onreadystatechange = function(){
       if (xhr.readyState == 4) {
@@ -1359,10 +1360,10 @@ window.Zepto = Zepto
       }
     }
 
-    var async = 'async' in settings ? settings.async : true
-    xhr.open(settings.type, settings.url, async)
+    var async = 'async' in settings ? settings.async : true;
+    xhr.open(settings.type, settings.url, async);
 
-    for (name in settings.headers) xhr.setRequestHeader(name, settings.headers[name])
+    for (name in settings.headers) xhr.setRequestHeader(name, settings.headers[name]) ;
 
     if (ajaxBeforeSend(xhr, settings) === false) {
       xhr.abort()

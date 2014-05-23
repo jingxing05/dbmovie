@@ -1,4 +1,5 @@
 document.addEventListener('deviceready', onDeviceReady, false);
+var douban_api_url = "https://api.douban.com/v2/movie/";
 function onDeviceReady() {
   navigator.splashscreen.hide();
   //注册后退按钮
@@ -107,7 +108,25 @@ var App = (function () {
 }());
 App.page('index', function () {
   this.init = function () {
-    $('#btn_show_welcome').on('tap', J.Welcome.show);
+    $('#search_btn').on('tap', function () {
+      var search_key = $('#input_search_key').val().trim();
+      if (search_key.length == 0) {
+        J.showToast('你想搜啥...', 'info');
+        $('#input_search_key').focus();
+        return false;
+      }
+      if (!(/^[\u0391-\uFFE5A-Z0-9a-z]+$/.test(search_key))) {
+        J.showToast('只能输中英文、数字，中间无空格', 'error');
+        $('#input_search_key').focus();
+        return false;
+      } else {
+        J.showMask();
+        //这里可以去抓取数据了 url, data, success, dataType
+        $.getJSON(douban_api_url + 'search?q=' + search_key + '&apikey=0cfdeb465927f92f26f9c1d30b77eb8d&count=10&callback=?', function(remoteData){
+          parseMovielist(remoteData)
+        });
+      }
+    });
   }
 });
 App.page('form', function () {
@@ -120,3 +139,22 @@ App.page('form', function () {
 $(function () {
   App.run();
 });
+
+function parseMovielist(json) {
+  var html = '';
+  if(json.count>0){
+    $('#no_movies_tip').hide();
+  }
+  $.each(json.subjects, function (i, item) {
+    html += '<li data-icon="next" data-selected="selected"><i class="icon next"></i>'
+      + '<a href="" data-target="section">'
+      + '<strong>' + item.title + '</strong>'
+      + '<p>评分:<span class="label">' + item.rating.average +'</span>最高:' + item.rating.max + '分，共'+item.rating.stars + '人评分</p>'
+      + '<p>年份:' + item.year + '</p></a>'
+      + '<span><img src="' + item.images.small + ' alt="' + item.title + '" title="' + item.title + '"/></span></li>';
+  });
+
+  $('#movie_search_list').html(html);
+  J.hideMask();
+  return false;
+};

@@ -5,7 +5,7 @@
     <title>疯狂的电影</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="js/lib/jg/Jingle.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
@@ -30,32 +30,36 @@
             </nav>
         </header>
         <article class="active" data-scroll="true">
-            <div style="padding: 10px 0 20px;">
-            <ul class="list inset demo-list">
-                <li data-icon="next" data-selected="selected">
-                    <a href="#" data-icon="exit" id="btn_show_welcome">
-                        <strong>欢迎页</strong>
-                    </a>
-                </li>
-                <li data-icon="next" data-selected="selected">
-                    <span class="icon newspaper"></span>
-                    <a href="#list_section"  data-target="section">
-                        <strong>layout</strong>
-                        <p>基本布局</p>
-                    </a>
-                </li>
-                <li data-icon="next" data-selected="selected">
-                    <a href="#" data-icon="exit" id="btn_show_welcome">
-                        <strong>欢迎页</strong>
-                    </a>
-                </li>
-            </ul>
+            <div>
+                <div class="indented">
+                    <form class="input-group">
+                        <div class="grid">
+                            <div class="col-1">
+                                <div class="input-row">
+                                    <label>关键字</label>
+                                    <input id="input_search_key" type="text" name="search_key" title="最多20字"
+                                           placeholder="如:暗花,最多20字" value="" maxlength="20" required="true">
+                                </div>
+                            </div>
+                            <div class="col-0" style="width: 100px;">
+                                <a id="search_btn" class="button block"
+                                   data-icon="search right">搜索</a></div>
+                        </div>
+                    </form>
+                </div>
+
+                <ul id="movie_search_list" class="list inset demo-list">
+                    <li><div class="grid middle" id="no_movies_tip">
+                        <div style="margin: auto;padding: 5px;"><strong data-icon="earth right">赶紧搜索吧</strong></div>
+                    </div></li>
+                </ul>
             </div>
         </article>
     </section>
-</div> 
+</div>
 <!-- lib -->
-<script type="text/javascript" src="js/phonegap.js"></script><!-- this only load in phonegap env. -->
+<script type="text/javascript" src="js/phonegap.js"></script>
+<!-- this only load in phonegap env. -->
 <script type="text/javascript" src="js/lib/zepto/zepto.js"></script>
 <script type="text/javascript" src="js/lib/iscroll.js"></script>
 <script type="text/javascript" src="js/lib/template.min.js"></script>
@@ -66,5 +70,6 @@
 
 <!--- app --->
 <script type="text/javascript" src="js/index.js"></script>
+
 </body>
 </html>

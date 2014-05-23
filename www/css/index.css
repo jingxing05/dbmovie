@@ -189,3 +189,10 @@
 	80% { -webkit-transform: translateX(0%) skewX(15deg); opacity: 1; }
 	100% { -webkit-transform: translateX(0%) skewX(0deg); opacity: 1; }
 }
+
+#movie_search_list li p{
+    padding-top: 9px;
+}
+#movie_search_list li span{
+    width:75px;height:100px;margin-right: 19px;
+}
