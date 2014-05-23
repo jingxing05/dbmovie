@@ -1,4 +1,4 @@
-dbmovie
-=======
+simplenote
+==========
 
-search and view movie information  from Dou Ban api
+simplenote aims to easy and rapidly record your mind with text, voice or picture.
