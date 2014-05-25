@@ -23,39 +23,153 @@
     <section id="index_section" class="active">
         <header>
             <nav class="left">
+                <a data-target="section" data-icon="info" href="#refresh_section"></a>
             </nav>
             <h1 class="title">疯狂的电影</h1>
             <nav class="right">
                 <a data-target="section" data-icon="info" href="#about_section"></a>
             </nav>
         </header>
+        <footer>
+            <a href="#viewhistory_section" data-target="section" data-icon="list" class="active">查看访问历史</a>
+        </footer>
         <article class="active" data-scroll="true">
-            <div>
-                <div class="indented">
-                    <form class="input-group">
-                        <div class="grid">
-                            <div class="col-1">
-                                <div class="input-row">
-                                    <label>关键字</label>
-                                    <input id="input_search_key" type="text" name="search_key" title="最多20字"
-                                           placeholder="如:暗花,最多20字" value="" maxlength="20" required="true">
-                                </div>
-                            </div>
-                            <div class="col-0" style="width: 100px;">
-                                <a id="search_btn" class="button block"
-                                   data-icon="search right">搜索</a></div>
+            <div style="padding: 10px 0 20px;" class="indented">
+                <form class="input-group indented">
+                    <div class="grid">
+                        <div class="col-1">
+                            <input id="input_search_key" type="text" name="search_key" title="最多20字"
+                                   placeholder="搜'苍井',最多20字" value="" required="true">
                         </div>
-                    </form>
-                </div>
-
+                        <div class="col-0" style="width: 100px;">
+                            <a id="search_btn" class="button block"
+                               data-icon="search right">搜索</a></div>
+                    </div>
+                </form>
                 <ul id="movie_search_list" class="list inset demo-list">
-                    <li><div class="grid middle" id="no_movies_tip">
-                        <div style="margin: auto;padding: 5px;"><strong data-icon="earth right">赶紧搜索吧</strong></div>
-                    </div></li>
+                    <li>
+                        <div class="grid middle" id="no_movies_tip">
+                            <div style="margin: auto;padding: 5px;"><strong data-icon="earth right">赶紧搜索吧</strong></div>
+                        </div>
+                    </li>
                 </ul>
+                <div><a href="#" data-target="section" data-icon="exit" id="btn_show_welcome"><strong>欢迎</strong></a></div>
             </div>
         </article>
     </section>
+    <section id="movie_section" data-transition="popup"></section>
+    <section id="celebrity_section"></section>
+    <script id="movie_tpl" type="text/html">
+        <header>
+            <nav class="left">
+                <a href="#" data-icon="icon undo" data-target="back">返回</a>
+            </nav>
+            <h1 class="title">{{title}}</h1>
+            <nav class="right">
+                <a href="#index_section" data-icon="icon home" data-target="section">首页</a>
+            </nav>
+        </header>
+        <article class="active" id="moviedetail" viewed="{{id}}" data-scroll="true">
+            <div class="indented">
+                <div class="grid">
+                    <div class="col-0" style="width: 100px;">
+                        <img width="100"
+                             src="{{if (images&&images.medium)}}{{images.medium}}{{else}}img/noimg.gif{{/if}}"/>
+                    </div>
+                    <div class="col-1 leftsmallpadding">
+                        {{title}}<br/>
+                        {{rating.average}}分<br/>
+                        {{year}}年 {{each countries as value i}} {{value}} {{/each}}<br/>
+                        {{each genres as value i}} {{value}} {{/each}}<br/>
+                    </div>
+                </div>
+                <h3><strong>导演</strong></h3>
+                {{each directors as value i}}
+                {{if ((i+5)%4==1)}}
+                <div class="grid">
+                    {{/if}}
+                    <div class="col-1 celebrity" id="{{if value.id}}{{value.id}}{{else}}0{{/if}}">
+                        <a href="#celebrity_section" data-target="section">
+                        <div class="grid vertical">
+                            <div class="col-1"><img
+                                    src="{{if (value.avatars&&value.avatars.small)}}{{value.avatars.small}}{{else}}img/noimg.gif{{/if}}"/>
+                            </div>
+                            <div class="col-1">{{value.name}}</div>
+                        </div>
+                        </a>
+                    </div>
+                    {{if ((i+5)%4==0||i==(directors.length-1))}}
+                </div>
+                {{/if}}
+                {{/each}}
+                <h4><strong>演员</strong></h4>
+                {{each casts as value i}}
+                {{if ((i+5)%4==1)}}
+                <div class="grid">
+                    {{/if}}
+                    <div class="col-1 celebrity" id="{{if value.id}}{{value.id}}{{else}}0{{/if}}">
+                        <a href="#celebrity_section" data-target="section">
+                        <div class="grid vertical">
+                            <div class="col-1"><img
+                                    src="{{if (value.avatars&&value.avatars.small)}}{{value.avatars.small}}{{else}}img/noimg.gif{{/if}}"/>
+                            </div>
+                            <div class="col-1">{{value.name}}</div>
+                        </div>
+                        </a>
+                    </div>
+                    {{if ((i+5)%4==0||i==(casts.length-1))}}
+                </div>
+                {{/if}}
+                {{/each}}
+            </div>
+        </article>
+    </script>
+    <script id="celebrity_tpl" type="text/html">
+        <header>
+            <nav class="left">
+                <a href="#" data-icon="icon undo" data-target="back">返回</a>
+            </nav>
+            <h1 class="title">{{name}}</h1>
+            <nav class="right">
+                <a href="#index_section" data-icon="icon home" data-target="section">首页</a>
+            </nav>
+        </header>
+        <article class="active" id="celebritydetail" viewed="{{id}}" data-scroll="true">
+            <div class="indented">
+                <div class="grid">
+                    <div class="col-0" style="width: 100px;">
+                        <img width="100"
+                             src="{{if (avatars&&avatars.medium)}}{{avatars.medium}}{{else}}img/noimg.gif{{/if}}"/>
+                    </div>
+                    <div class="col-1 leftsmallpadding">
+                        {{name}}<br/>
+                        {{name_en}}<br/>
+                        性别：{{gender}}<br/>
+                         {{born_place}}<br/>
+                    </div>
+                </div>
+                <h3><strong>作品</strong></h3>
+                {{each works as value i}}
+                {{if ((i+5)%4==1)}}
+                <div class="grid">
+                    {{/if}}
+                    <div class="col-0 celebritywork" id="{{value.subject.id}}">
+                        <a href="#movie_section" data-target="section">
+                        <div class="grid vertical">
+                            <div class="col-1"><img
+                                    src="{{if (value.subject.images&&value.subject.images.small)}}{{value.subject.images.small}}{{else}}img/noimg.gif{{/if}}"/>
+                            </div>
+                            <div class="col-1"><h6>{{value.subject.title}}</h6></div>
+                        </div>
+                        </a>
+                    </div>
+                    {{if ((i+5)%4==0||i==(works.length-1))}}
+                </div>
+                {{/if}}
+                {{/each}}
+            </div>
+        </article>
+    </script>
 </div>
 <!-- lib -->
 <script type="text/javascript" src="js/phonegap.js"></script>

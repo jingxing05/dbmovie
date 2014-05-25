@@ -194,5 +194,22 @@
     padding-top: 9px;
 }
 #movie_search_list li span{
-    width:75px;height:100px;margin-right: 19px;
+    width:75px;height:100px;margin-right: 10px;
+}
+#movie_search_list li span img{
+    max-width:75px;
+}
+.celebrity, .celebritywork{
+    width:70px;
+    margin-right: 5px;
+}
+.celebrity img, .celebritywork img{
+    max-width:70px;
+}
+.celebritywork a, .celebrity a{
+    color: #7a7a7a;
+}
+
+.leftsmallpadding{
+    padding-left: 9px;
 }

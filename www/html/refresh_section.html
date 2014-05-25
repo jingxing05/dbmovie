@@ -1,110 +1,37 @@
 <section id="refresh_section" >
     <header>
         <nav class="left">
-            <a href="#" data-icon="previous" data-target="back">Back</a>
+            <a href="#" data-icon="icon undo" data-target="back">返回</a>
         </nav>
-        <h1 class="title">pull2refresh</h1>
+        <h1 class="title">{{title}}</h1>
+        <nav class="right">
+            <a href="#index_section" data-icon="icon home" data-target="section">首页</a>
+        </nav>
     </header>
-    <footer>
-        <a href="#down_refresh_article" class="active" data-target="article" data-icon="arrow-down-3">下拉</a>
-        <a href="#up_refresh_article" data-target="article" data-icon="arrow-up-2">上拉</a>
-    </footer>
-    <article class="active" id="down_refresh_article" data-scroll="true">
-        <div class="scrollWrapper">
-            <ul class="list">
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-                <li>下拉刷新</li>
-            </ul>
+    <article class="active" id="layout_book_article">
+        <div class="grid indented">
+            <div class="col-0" style="width: 100px;"><img width="100" src="{{images.medium}}" /></div>
+            <div class="col-1">
+                {{title}}<br />
+                {{rating.average}}分<br />
+                {{year}}年 {{each countries as value i}} {{value}} {{/each}}<br />
+                {{each genres as value i}} {{value}} {{/each}}<br />
+
+            </div>
         </div>
-    </article>
-    <article id="up_refresh_article" data-scroll="true">
-        <div class="scrollWrapper">
-            <ul class="list">
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-                <li>上拉加载更多</li>
-            </ul>
+        <h3>导演</h3>
+        <div class="grid demo-grid">
+            <div class="col-1">col-1</div>
+            <div class="col-1">col-1</div>
+            <div class="col-1">col-1</div>
+            <div class="col-1">col-1</div>
+        </div>
+        <h4>演员</h4>
+        <div class="grid demo-grid">
+            <div class="col-1">col-1</div>
+            <div class="col-1">col-1</div>
+            <div class="col-1">col-1</div>
+            <div class="col-1">col-1</div>
         </div>
     </article>
 </section>
