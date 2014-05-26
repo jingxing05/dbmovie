@@ -32,7 +32,7 @@ Happy Coding!
 
 ## 测试和使用
 
-### 去豆瓣申请一个 api_key，替换 www/js/index.js 的douban\_api\_key
+### 去豆瓣申请一个 api_key，替换 www/js/api\_key.js 的douban\_api\_key
 
  本项目基于html5，所以
 
