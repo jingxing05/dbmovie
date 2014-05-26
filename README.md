@@ -32,7 +32,11 @@ Happy Coding!
 
 ## 测试和使用
 
-### 去豆瓣申请一个 api_key，替换 www/js/api\_key.js 的douban\_api\_key
+### 注意！！！！！！
+### 去豆瓣申请一个 api_key，放一个js文件到： www/js/api\_key.js
+内容为
+
+    var douban_api_key = 'your douban app key';
 
  本项目基于html5，所以
 
