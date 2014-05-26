@@ -1,1 +1,1 @@
-var douban_api_key = '0cfdeb465927f92f26f9c1d30b77eb8d';//replace this value with your 豆瓣app_key
+var douban_api_key = 'dsfdfdfdfdfdfdsfsdfdsf';//replace this value with your 豆瓣app_key
