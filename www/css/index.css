@@ -170,7 +170,7 @@
     100% {-webkit-transform:rotate(5deg);}
 }
 #welcome_btn{
-    position: absolute;bottom: 100px;right: 80px;
+    margin-top: 160px;
     -webkit-animation-name: shake;
     -webkit-animation-duration: 0.10s;
     -webkit-animation-timing-function: linear;
