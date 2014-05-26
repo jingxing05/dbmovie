@@ -23,29 +23,6 @@ function onDeviceReady() {
 };
 var view_movieid = null;
 var view_celebrityid = null;
-//处理电影搜索列表
-function parseMovielist(json) {
-  var html = '';
-  if (json.total == 0) {
-    J.hideMask();
-    J.showToast('没搜到相关电影:(', 'error');
-  } else {
-    $.each(json.subjects, function (i, item) {
-      html += '<li id="' + item.id + '" data-selected="selected">'
-        + '<a href="#movie_section" data-target="section">'
-        + '<strong>' + item.title + '</strong>'
-        + '<p>评分:<span class="label">' + item.rating.average + '/' + item.rating.max + '</span>' + parseInt(item.rating.stars) + '&hearts;</p>'
-        + '<p>年份:' + item.year + '</p></a>'
-        + '<span><img src="' + item.images.small + '?apikey=' + douban_api_key + '" alt="' + item.title + '" title="' + item.title + '"/></span>'
-        + '</li>';
-    });
-    $('#movie_search_list').html(html);
-    J.Scroll('#index_section article');//刷新滚动条
-    J.hideMask();
-  }
-  return false;
-};
-
 var App = (function () {
   var pages = {};
   var run = function () {
@@ -164,7 +141,7 @@ App.page('index', function () {
     });
 
     $('#btn_show_welcome').on('tap', function () {
-      console.log('shioiiiit ititiiti ');
+
 
       //$('#btn_show_welcome').attr('href', '#movie_seciton');
     });
@@ -199,13 +176,15 @@ App.page('movie', function () {
                 view_movieid = $(obj).parents('.celebritywork').attr('id');
                 console.log(view_movieid);
               });
+              record_viewed_Item(remoteData, 'celebrity');
               J.Scroll('#celebritydetail');//刷新滚动条
               J.hideMask();
             });
           });
-
+          record_viewed_Item(remoteData, 'movie');
           J.Scroll('#moviedetail');//刷新滚动条
           J.hideMask();
+
         });
       }
 
@@ -223,16 +202,46 @@ App.page('celebrity', function () {
     }
   }
 });
-
+var histroy_type = ['movie', 'celebrity'];
 
 App.page('viewhistory', function () {
+  this.init = function () {
+    $('#empty_history').on('tap', function () {
+      if (window.localStorage && window.localStorage.getItem) {
+        $.each(histroy_type, function (i, atp) {
+          window.localStorage.removeItem('history' + atp);
+          $('#history_' + atp).find('ul').html('<li>木有lishi</li>');
+          J.Scroll('#history_' + atp);
+        });
+      }
+    });
+  }
+
+
   //每次show的时候，加载数据更新模板数据
   this.show = function () {
-    //cong localstorage里面 查询数据
+    //localStorage里面 查询数据
+    if (window.localStorage && window.localStorage.getItem) {
 
-
-    if (view_celebrityid == null || parseInt(view_celebrityid) == 0) {
-      window.history.go(-1);
+      $.each(histroy_type, function (i, atp) {
+        var history_items = window.localStorage.getItem('history' + atp);
+        if (null !== history_items && undefined !== history_items) {
+          history_items = $.parseJSON(history_items);
+          var lihtml = '';
+          $.each(history_items, function (i, item) {
+            lihtml += '<li id="' + item.id + '" data-selected="selected">'
+              + '<a href="#' + atp + '_section" data-target="section">'
+              + '<strong>' + item.name + '</strong>'
+              + '<p>&nbsp;</p></a>'
+              + '<span><img src="' + item.image + '?apikey=' + douban_api_key + '" alt="' + item.name + '" title="' + item.name + '"/></span>'
+              + '</li>';
+          });
+          $('#history_' + atp).find('ul').html(lihtml);
+          J.Scroll('#history_' + atp);
+        }
+      });
+    } else {
+      console.log('浏览器不支持本地存储');
     }
   }
 });
@@ -241,3 +250,53 @@ App.page('viewhistory', function () {
 $(function () {
   App.run();
 });
+//处理电影搜索列表
+function parseMovielist(json) {
+  var html = '';
+  if (json.total == 0) {
+    J.hideMask();
+    J.showToast('没搜到相关电影:(', 'error');
+  } else {
+    $.each(json.subjects, function (i, item) {
+      html += '<li id="' + item.id + '" data-selected="selected">'
+        + '<a href="#movie_section" data-target="section">'
+        + '<strong>' + item.title + '</strong>'
+        + '<p>评分:<span class="label">' + item.rating.average + '/' + item.rating.max + '</span>' + parseInt(item.rating.stars) + '&hearts;</p>'
+        + '<p>年份:' + item.year + '</p></a>'
+        + '<span><img src="' + item.images.small + '?apikey=' + douban_api_key + '" alt="' + item.title + '" title="' + item.title + '"/></span>'
+        + '</li>';
+    });
+    $('#movie_search_list').html(html);
+    J.Scroll('#index_section article');//刷新滚动条
+    J.hideMask();
+  }
+  return false;
+};
+
+function record_viewed_Item(item, type) {
+  if (window.localStorage && window.localStorage.getItem) {
+    var viewed_type = type || 'movie';
+    var item_brief = {};
+    item_brief.id = item.id;
+    if ('movie' == viewed_type) {
+      item_brief.name = item.title;
+      item_brief.image = item.images.medium;
+    } else {
+      item_brief.name = item.name;
+      item_brief.image = item.avatars.small;
+    }
+    var history_items = window.localStorage.getItem('history' + viewed_type);
+
+    if (null === history_items || undefined === history_items) {
+      history_items = [];
+    } else if (history_items.indexOf(JSON.stringify(item_brief)) >= 0) {
+      return false;
+    } else {
+      history_items = $.parseJSON(history_items);
+    }
+    history_items.push(item_brief);
+    window.localStorage.setItem('history' + viewed_type, JSON.stringify(history_items));
+  } else {
+    console.error('浏览器不支持本地存储');
+  }
+}

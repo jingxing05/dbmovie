@@ -203,10 +203,14 @@
     width:70px;
     margin-right: 5px;
 }
-.celebrity img, .celebritywork img{
+.celebrity img, .celebritywork img,#history_movie ul  img,#history_celebrity ul img,{
     max-width:70px;
 }
 .celebritywork a, .celebrity a{
+    color: #7a7a7a;
+}
+
+#history_movie a,#history_celebrity a,{
     color: #7a7a7a;
 }
 
