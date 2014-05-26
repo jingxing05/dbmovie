@@ -1,6 +1,5 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 var douban_api_url = 'https://api.douban.com/v2/movie/';
-douban_api_key = '0cfdeb465927f92f26f9c1d30b77eb8d';
 function onDeviceReady() {
   navigator.splashscreen.hide();
   //注册后退按钮

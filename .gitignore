@@ -24,4 +24,4 @@ proguard/
 
 .idea/
 platforms/*
-www/js/api_key.js
+
