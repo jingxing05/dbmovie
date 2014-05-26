@@ -138,6 +138,9 @@ App.page('index', function () {
     $('#movie_search_list').on('tap', function (e) {
       var obj = e.target || e.srcElement;
       view_movieid = $(obj).parents('li').attr('id');
+      if (parseInt(view_movieid) == 0) {
+        return false;
+      }
     });
 
     $('#btn_show_welcome').on('tap', function () {
@@ -168,26 +171,12 @@ App.page('movie', function () {
             if (parseInt(celebrityid) == 0) {
               return false;
             }
-            J.showMask();
-            $.getJSON(douban_api_url + 'celebrity/' + celebrityid + '?apikey=' + douban_api_key + '&callback=?', function (remoteData) {
-              J.tmpl('#celebrity_section', 'celebrity_tpl', remoteData);
-              $('.celebritywork').on('tap', function (e) {
-                var obj = e.target || e.srcElement;
-                view_movieid = $(obj).parents('.celebritywork').attr('id');
-                console.log(view_movieid);
-              });
-              record_viewed_Item(remoteData, 'celebrity');
-              J.Scroll('#celebritydetail');//刷新滚动条
-              J.hideMask();
-            });
           });
           record_viewed_Item(remoteData, 'movie');
           J.Scroll('#moviedetail');//刷新滚动条
           J.hideMask();
-
         });
       }
-
     } else {
       window.history.go(-1);
     }
@@ -199,6 +188,20 @@ App.page('celebrity', function () {
   this.show = function () {
     if (view_celebrityid == null || parseInt(view_celebrityid) == 0) {
       window.history.go(-1);
+    }
+    var viewedid = $('#celebritydetail').attr('viewed');
+    if (viewedid != view_celebrityid) {
+    J.showMask();
+    $.getJSON(douban_api_url + 'celebrity/' + view_celebrityid + '?apikey=' + douban_api_key + '&callback=?', function (remoteData) {
+      J.tmpl('#celebrity_section', 'celebrity_tpl', remoteData);
+      $('.celebritywork').on('tap', function (e) {
+        var obj = e.target || e.srcElement;
+        view_movieid = $(obj).parents('.celebritywork').attr('id');
+      });
+      record_viewed_Item(remoteData, 'celebrity');
+      J.Scroll('#celebritydetail');//刷新滚动条
+      J.hideMask();
+    });
     }
   }
 });
@@ -214,6 +217,16 @@ App.page('viewhistory', function () {
           J.Scroll('#history_' + atp);
         });
       }
+    });
+
+    $('#history_movie ul').on('tap', function (e) {
+      var obj = e.target || e.srcElement;
+      view_movieid = $(obj).parents('li').attr('id');
+    });
+
+    $('#history_celebrity ul').on('tap', function (e) {
+      var obj = e.target || e.srcElement;
+      view_celebrityid = $(obj).parents('li').attr('id');
     });
   }
 
@@ -297,6 +310,6 @@ function record_viewed_Item(item, type) {
     history_items.push(item_brief);
     window.localStorage.setItem('history' + viewed_type, JSON.stringify(history_items));
   } else {
-    console.error('浏览器不支持本地存储');
+       console.error('浏览器不支持本地存储');
   }
 }
