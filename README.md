@@ -52,7 +52,8 @@ Happy Coding!
     git clone https://github.com/jingxing05/dbmovie.git
     cd dbmovie
     phonegap run android
-
+    
+  **将platforms\android\bin下的 xxxx_debug.apk安装到手机即可**
 
 ## Todo
 * 更好的图片加载
