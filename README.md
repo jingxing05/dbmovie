@@ -20,7 +20,7 @@ Happy Coding!
 
 平台： phonegap支持的平台都可打包部署
 
-## 安装和使用
+## 安装
 
 **前置安装：**
 
@@ -30,7 +30,23 @@ Happy Coding!
   * 安装并配置 各平台sdk 如 adk
   * **phonegap的Android运行环境可参考 [phonegap开发环境搭建摘要][1]**
 
-**安装步骤:**
+## 测试和使用
+
+### 去豆瓣申请一个 api_key，替换 www/js/index.js 的douban\_api\_key
+
+ 本项目基于html5，所以
+
+ * 可以作为一个web站点在各式html5浏览器中浏览
+ * 可以用phonegap打包 安装到各个平台
+ 
+说实话真机浏览还是挺慢的
+
+**本机浏览器测试:**
+
+  * 搭建任一web服务器环境，将www目录copy到 web server 的 htdoc目录
+
+**手机应用安装步骤:**
+
 
     npm install -g phonegap 
     git clone https://github.com/jingxing05/dbmovie.git
